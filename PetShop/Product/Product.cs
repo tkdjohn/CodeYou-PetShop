@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
 
-namespace PetShop
+namespace PetShop.Product
 {
     public class Product
     {
@@ -12,5 +8,10 @@ namespace PetShop
         public string Description { get; set; } = "";
         public int Qty { get; set; } = 0;
         public decimal Price { get; set; } = 0.0M;
+
+        public override string ToString()
+        {
+            return JsonSerializer.Serialize(this);
+        }
     }
 }
