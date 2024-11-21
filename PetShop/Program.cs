@@ -10,6 +10,7 @@ bool userIsDone = false;
 while (!userIsDone)
 {
     Console.WriteLine("Press 1 to add a product.");
+    Console.WriteLine("Press 2 to view a product.");
     Console.WriteLine("Type 'q' or 'exit' to quit.");
     // application will block here waiting for user to press <Enter>
     var userInput = Console.ReadLine()?.ToLower() ?? "";
@@ -24,6 +25,12 @@ while (!userIsDone)
         case "1":
             ProductLogic.AddProduct( GetDogLeashFromUser());
             Console.WriteLine("Dog leash added.");
+            break;
+
+        case "2":
+            var name = UIUtils.GetStringFromUser("Enter the product name you want to view ");
+            Console.WriteLine(ProductLogic.GetDogLeash(name));
+            Console.WriteLine(ProductLogic.GetDogLeashLINQ(name));
             break;
     }
 } 
