@@ -77,52 +77,43 @@ namespace PetShop.Product {
             }
         }
 
-        public DogLeash? GetDogLeash(string name) { 
-            if (!SkipTheDictionaries) {
-                return GetDogLeashFromDictionary(name);
-            }
+        public DogLeash? GetDogLeash(string name) {
+            try {
+                if (!SkipTheDictionaries) {
+                    return _DogLeashes[name];
+                }
 
-            return GetDogLeashLINQ(name);
+                return _products.Where(p => p is DogLeash)
+                    .FirstOrDefault(dl => dl.Name == name) as DogLeash;
+            } catch (Exception ex) {
+                // this really isn't the way TBH,
+                // avoid the exception if possible by checking 
+                // if name is in the dictionary (or don't use a
+                // dictionary for this) 
+                return null;
+            }
         }
 
         public CatFood? GetCatFood(string name) {
-            if (!SkipTheDictionaries) {
-                return GetCatFoodFromDictionary(name);
+            try {
+                if (!SkipTheDictionaries) {
+                    return _CatFoods[name];
+                }
+
+                return _products.Where(p => p is CatFood)
+                    .FirstOrDefault(cf => cf.Name == name) as CatFood;
+            } catch (Exception ex) {
+                return null;
             }
-            return GetCatFoodLINQ(name);
         }
 
-        // GetDogLeashByName - the "ByName" is redundant
-        // GetDogLeash(string name) tells us we are getting a DogLeash
-        //  by the provided name.
-        // Also since this is a single line method using the lambda expression
-        // makes for more compact/readable code. Basically => is shorthand for
-        // return but allows us to forgo the curly boys. 
-        // Finally, one of the problems with this approach is that 
-        // we will get a runtime error if name isn't in the dictionary.
-        protected DogLeash GetDogLeashFromDictionary(string name) 
-            => _DogLeashes[name];
-
-        protected CatFood GetCatFoodFromDictionary(string name) 
-            => _CatFoods[name]; 
-
-        // While GetDogLeash and GetCatFood are great examples of how
-        // a dictionary works, it isn't necessary to use a dictionary
-        // to accomplish this. A simple LINQ statement can do this 
-        // without resorting to the dictionary. 
-        // Making the return type nullable since name could be null
-        // and a null result makes sense in that case.
-        protected DogLeash? GetDogLeashLINQ(string name) 
-            => _products.Where(p => p is DogLeash)
-                .FirstOrDefault(dl => dl.Name == name) as DogLeash;
-        protected CatFood? GetCatFoodLINQ(string name)
-            => _products.Where(p => p is  CatFood)
-                .FirstOrDefault(cf => cf.Name == name) as CatFood;
-
         // no need to call this GetAllProducts the word 'All' doesn't
-        // add any value to the name.
-        public List<Product> GetProducts() {
-            return _products;
+        //   add any value to the name.
+        // also very unsafe to return the List as callers can 
+        //   add or remove form it at will. better to return 
+        //   the list as an IReadOnluyCollection.
+        public IReadOnlyCollection<Product> GetProducts() {
+            return _products ;
         }
 
 

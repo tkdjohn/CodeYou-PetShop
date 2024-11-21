@@ -28,9 +28,13 @@ while (!userIsDone)
             break;
 
         case "2":
-            var name = UIUtils.GetStringFromUser("Enter the product name you want to view ");
-            Console.WriteLine(ProductLogic.GetDogLeash(name));
-            Console.WriteLine(ProductLogic.GetDogLeashLINQ(name));
+            var name = UIUtils.GetStringFromUser("Enter the product name you want to view. ");
+            var leash = ProductLogic.GetDogLeash(name);
+            if (leash != null) {
+                Console.WriteLine(ProductLogic.GetDogLeash(name));
+            } else {
+                Console.WriteLine($"The product '{name}' was not found.");
+            }
             break;
     }
 } 
@@ -50,7 +54,6 @@ static DogLeash GetDogLeashFromUser()
 
     newLeash.Material = UIUtils.GetStringFromUser("Enter the material: ");
 
-    //Console.WriteLine(newLeash.ToString());
     return newLeash;
 }
 
