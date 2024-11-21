@@ -4,6 +4,8 @@
 using PetShop.Product;
 using Utilities;
 
+var ProductLogic = new ProductLogic();
+
 bool userIsDone = false;
 while (!userIsDone)
 {
@@ -20,12 +22,13 @@ while (!userIsDone)
             break;
 
         case "1":
-            AddDogLeash();
+            ProductLogic.AddProduct( GetDogLeashFromUser());
+            Console.WriteLine("Dog leash added.");
             break;
     }
 } 
 
-static void AddDogLeash()
+static DogLeash GetDogLeashFromUser()
 {
     var newLeash = new DogLeash();
     Console.WriteLine("Adding a Dog Leash.\n");
@@ -40,7 +43,8 @@ static void AddDogLeash()
 
     newLeash.Material = UIUtils.GetStringFromUser("Enter the material: ");
 
-    Console.WriteLine(newLeash.ToString());
+    //Console.WriteLine(newLeash.ToString());
+    return newLeash;
 }
 
 

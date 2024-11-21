@@ -5,7 +5,17 @@ VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShop", "PetShop\PetShop.csproj", "{41F92AA0-8ED9-4AFF-BE0C-00F60242243C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Utilities.csproj", "{885C00FE-C7EB-44D5-9D38-6A9168D49063}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utilities", "Utilities\Utilities.csproj", "{885C00FE-C7EB-44D5-9D38-6A9168D49063}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Requirements", "Requirements", "{D67CE162-6176-4436-B8D4-836323939D38}"
+	ProjectSection(SolutionItems) = preProject
+		PetStore 2.md = PetStore 2.md
+		Petstore 1.md = Petstore 1.md
+		PetStore 3.md = PetStore 3.md
+		PetStore 4.md = PetStore 4.md
+		PetStore 5.md = PetStore 5.md
+		PetStore 6.md = PetStore 6.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
