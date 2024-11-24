@@ -4,13 +4,14 @@
 using PetShop.Product;
 using Utilities;
 
-var ProductLogic = new ProductLogic();
+IProductLogic ProductLogic = new ProductLogic();
 
 bool userIsDone = false;
 while (!userIsDone)
 {
     Console.WriteLine("Press 1 to add a product.");
     Console.WriteLine("Press 2 to view a product.");
+    Console.WriteLine("Press 3 to view products that are in stock.");
     Console.WriteLine("Type 'q' or 'exit' to quit.");
     // application will block here waiting for user to press <Enter>
     var userInput = Console.ReadLine()?.ToLower() ?? "";
@@ -36,7 +37,13 @@ while (!userIsDone)
                 Console.WriteLine($"The product '{name}' was not found.");
             }
             break;
+        case "3":
+            var inStock = ProductLogic.GetOnlyInStockProducts();
+            Console.WriteLine("The following products are in stock: ");
+            inStock.ForEach(p => Console.WriteLine(p));
+            break;
     }
+    Console.WriteLine("===============================");
 } 
 
 static DogLeash GetDogLeashFromUser()

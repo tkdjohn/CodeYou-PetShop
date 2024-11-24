@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace PetShop.Product {
-    public class ProductLogic {
+    public class ProductLogic : IProductLogic {
         // This readonly means we can't assign a new List to 
         // _products. It doesn't mean we can't call
         // _products.Add() or _products.Remove()
@@ -19,10 +19,16 @@ namespace PetShop.Product {
         private readonly Dictionary<string, CatFood> _CatFoods = [];
 
         public bool SkipTheDictionaries { get; set; } = true;
-        public ProductLogic()
-        {
-            // but lets not do this here, lets do this above.
+        public ProductLogic() {
+            // but lets not initialize _products here, lets do this
+            // where _products is declared above.
             // _products = []; //shorthand for new List<Product>(); 
+
+            // for now add test data here
+            // - we'll clean this up when we add a data repository
+            _products.Add(new Product { Name = "Test Product 1", Qty = 10 });
+            _products.Add(new Product { Name = "Out of Stock", Qty= 0 });
+            _products.Add(new Product { Name = "Only 1 left", Qty = 1  });
         }
 
         public void AddProduct(Product product) {
@@ -113,9 +119,11 @@ namespace PetShop.Product {
         //   add or remove form it at will. better to return 
         //   the list as an IReadOnluyCollection.
         public IReadOnlyCollection<Product> GetProducts() {
-            return _products ;
+            return _products;
         }
 
-
+        public List<string> GetOnlyInStockProducts() {
+            return _products.Where(p => p.Qty > 0).Select(p => p.Name).ToList();
+        }
     }
 }
