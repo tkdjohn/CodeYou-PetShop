@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Domain.Product.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Utilities;
 
-namespace PetShop.Product {
+namespace Domain.Product {
     public class ProductLogic : IProductLogic {
         // This readonly means we can't assign a new List to 
         // _products. It doesn't mean we can't call
@@ -26,9 +29,9 @@ namespace PetShop.Product {
 
             // for now add test data here
             // - we'll clean this up when we add a data repository
-            _products.Add(new Product { Name = "Test Product 1", Qty = 10 });
-            _products.Add(new Product { Name = "Out of Stock", Qty= 0 });
-            _products.Add(new Product { Name = "Only 1 left", Qty = 1  });
+            AddProduct(new DogLeash { Name = "Test Product 1", Qty = 10, Price = 1.99M });
+            AddProduct(new CatFood { Name = "Out of Stock", Qty = 0, Price = 15.99M });
+            AddProduct(new DogLeash { Name = "Only 1 left", Qty = 1, Price = 99.99M });
         }
 
         public void AddProduct(Product product) {
@@ -45,12 +48,12 @@ namespace PetShop.Product {
                 return;
             }
 
-            if (product is DogLeash) {
-                _DogLeashes.Add(product.Name, product as DogLeash);
+            if (product is DogLeash dogLeash && dogLeash != null) {
+                _DogLeashes.Add(product.Name, dogLeash);
                 return;
             }
-            if (product is CatFood) {
-                _CatFoods.Add(product.Name, product as CatFood);
+            if (product is CatFood catFood && catFood != null) {
+                _CatFoods.Add(product.Name, catFood);
                 return;
             }
         }
@@ -95,7 +98,8 @@ namespace PetShop.Product {
                 // this really isn't the way TBH,
                 // avoid the exception if possible by checking 
                 // if name is in the dictionary (or don't use a
-                // dictionary for this) 
+                // dictionary for this)
+                SimpleLogger.LogException(ex);
                 return null;
             }
         }
@@ -109,6 +113,7 @@ namespace PetShop.Product {
                 return _products.Where(p => p is CatFood)
                     .FirstOrDefault(cf => cf.Name == name) as CatFood;
             } catch (Exception ex) {
+                SimpleLogger.LogException(ex);
                 return null;
             }
         }
@@ -123,7 +128,11 @@ namespace PetShop.Product {
         }
 
         public List<string> GetOnlyInStockProducts() {
-            return _products.Where(p => p.Qty > 0).Select(p => p.Name).ToList();
+            return _products.InStock().Select(p => p.Name).ToList();
+        }
+
+        public decimal GetTotalPriceOfInventory() {
+            return _products.InStock().Select(p => p.Price * p.Qty).Sum();
         }
     }
 }

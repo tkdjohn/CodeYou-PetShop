@@ -1,6 +1,6 @@
 ﻿namespace Utilities
 {
-    public static class UIUtils
+    public static class UIUtilities
     {
         public static string GetStringFromUser(string prompt)
         {

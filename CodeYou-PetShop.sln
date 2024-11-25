@@ -9,13 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utilities", "Utilities\Util
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Requirements", "Requirements", "{D67CE162-6176-4436-B8D4-836323939D38}"
 	ProjectSection(SolutionItems) = preProject
-		PetStore 2.md = PetStore 2.md
 		Petstore 1.md = Petstore 1.md
+		PetStore 2.md = PetStore 2.md
 		PetStore 3.md = PetStore 3.md
 		PetStore 4.md = PetStore 4.md
 		PetStore 5.md = PetStore 5.md
 		PetStore 6.md = PetStore 6.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{703AE199-342A-4E3A-B777-D56DE2BF97C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,10 @@ Global
 		{885C00FE-C7EB-44D5-9D38-6A9168D49063}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{885C00FE-C7EB-44D5-9D38-6A9168D49063}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{885C00FE-C7EB-44D5-9D38-6A9168D49063}.Release|Any CPU.Build.0 = Release|Any CPU
+		{703AE199-342A-4E3A-B777-D56DE2BF97C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{703AE199-342A-4E3A-B777-D56DE2BF97C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{703AE199-342A-4E3A-B777-D56DE2BF97C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{703AE199-342A-4E3A-B777-D56DE2BF97C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

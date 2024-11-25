@@ -1,5 +1,4 @@
-﻿
-namespace PetShop.Product {
+﻿namespace Domain.Product {
     public interface IProductLogic {
         bool SkipTheDictionaries { get; set; }
 
@@ -10,5 +9,6 @@ namespace PetShop.Product {
         void RemoveProduct(Product product);
         void RemoveProduct(string productName);
         List<string> GetOnlyInStockProducts();
+        decimal GetTotalPriceOfInventory();
     }
 }
