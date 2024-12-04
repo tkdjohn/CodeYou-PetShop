@@ -1,10 +1,4 @@
 ﻿using Domain.Product.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Utilities;
 
 namespace Domain.Product {
@@ -118,7 +112,7 @@ namespace Domain.Product {
             }
         }
 
-        // no need to call this GetAllProducts the word 'All' doesn't
+        // no need to call this 'GetAllProducts' the word 'All' doesn't
         //   add any value to the name.
         // also very unsafe to return the List as callers can 
         //   add or remove form it at will. better to return 

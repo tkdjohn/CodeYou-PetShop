@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Product.Extensions
 {
-    public static class ListExtensions
+    public static class ProductExtensions
     {
         // Change to an IEnumberable (from a List) to avoid calling .ToList()
         // b/c ToList will traverse the list unnecessarily leading to inefficiencies.
