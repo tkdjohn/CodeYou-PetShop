@@ -2,12 +2,14 @@
 
 
 using Domain.Product;
+using Domain.Product.Validators;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.Text.Json;
 using Utilities;
 
 var services = CreateServiceCollection();
-var MyProductLogic = services.GetService<IProductLogic>();
+var MyProductLogic = services.GetService<IProductLogic>() ?? throw new Exception("Unable to locate a valid Product Logic module");
 
 bool userIsDone = false;
 while (!userIsDone)
@@ -34,9 +36,9 @@ while (!userIsDone)
 
         case "2":
             var name = UIUtilities.GetStringFromUser("Enter the product name you want to view. ");
-            var leash = MyProductLogic.GetDogLeash(name);
+            var leash = MyProductLogic.GetProduct<DogLeash>(name);
             if (leash != null) {
-                Console.WriteLine(MyProductLogic.GetDogLeash(name));
+                Console.WriteLine(leash);
             } else {
                 Console.WriteLine($"The product '{name}' was not found.");
             }
@@ -44,7 +46,7 @@ while (!userIsDone)
         case "3":
             var inStock = MyProductLogic.GetOnlyInStockProducts();
             Console.WriteLine("The following products are in stock: ");
-            inStock.ForEach(p => Console.WriteLine(p));
+            inStock.ToList().ForEach(p => Console.WriteLine(p));
             break;
         case "4":
             Console.WriteLine($"The total inventory retail value is: {MyProductLogic.GetTotalPriceOfInventory()}");
@@ -55,26 +57,16 @@ while (!userIsDone)
 
 static DogLeash GetDogLeashFromUser()
 {
-    var newLeash = new DogLeash();
     Console.WriteLine("Adding a Dog Leash.\n");
-    newLeash.Name = UIUtilities.GetStringFromUser("Enter a Name: ");
-    newLeash.Description = UIUtilities.GetStringFromUser("Enter a Description: ");
-
-    newLeash.Qty = UIUtilities.GetIntFromUser("Enter the quantity: ");
-
-    newLeash.Price = UIUtilities.GetDecimalFromUser("Enter the price: ");
-
-    newLeash.LengthInches = UIUtilities.GetIntFromUser("Enter the Length: ");
-
-    newLeash.Material = UIUtilities.GetStringFromUser("Enter the material: ");
-
-    return newLeash;
+    var json = UIUtilities.GetStringFromUser("Enter Dog Leash Json: ");
+    return JsonSerializer.Deserialize<DogLeash>(json) ?? new DogLeash();
 }
 
 
 IServiceProvider CreateServiceCollection () {
     var servicecollection = new ServiceCollection()
         .AddSingleton<IProductLogic, ProductLogic>()
+        .AddTransient<DogLeashValidator>()
         .AddTransient<ILogger, SimpleLogger>();
 
     return servicecollection.BuildServiceProvider();

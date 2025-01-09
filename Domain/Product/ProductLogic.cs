@@ -1,26 +1,29 @@
 ﻿using Domain.Product.Extensions;
+using Domain.Product.Validators;
+using FluentValidation;
 using Microsoft.Extensions.Logging;
-using Utilities;
 
 namespace Domain.Product {
     public class ProductLogic : IProductLogic {
         // This readonly means we can't assign a new List to 
         // _products. It doesn't mean we can't call
         // _products.Add() or _products.Remove()
-        private readonly List<Product> _products = [];
+        private readonly List<Product> products = [];
 
         private ILogger logger;
+        private DogLeashValidator dogLeashValidator;
+
         // I'm not entirely sure why we are implementing
         // dictionaries for the individual product types.
         // But then again, I don't understand why we have
         // specific products as product types. 
-        private readonly Dictionary<string, DogLeash> _DogLeashes = [];
-        private readonly Dictionary<string, CatFood> _CatFoods = [];
+        private readonly Dictionary<string, DogLeash> DogLeashes = [];
+        private readonly Dictionary<string, CatFood> CatFoods = [];
 
         public bool SkipTheDictionaries { get; set; } = true;
-        public ProductLogic(ILogger logger) {
-            logger.LogDebug("We created a Product Logic");
+        public ProductLogic(ILogger logger, DogLeashValidator dogLeashValidator) {
             this.logger = logger;
+            this.dogLeashValidator = dogLeashValidator;
 
             // but lets not initialize _products here, lets do this
             // where _products is declared above.
@@ -38,22 +41,33 @@ namespace Domain.Product {
             if (product is null) {
                 return;
             }
-            if (_products.Contains(product)) {
+
+            // we already have a product by that name. 
+            // TODO: might want to find a way check at the UI layer if a product
+            // already exists (or if the name is already in use) and inform the user, but
+            // since THIS isn't the UI layer, separation of concerns says we shouldn't 
+            // do that here - so just return in that case.
+            if (products.Contains(product) || products.Any(p => p.Name == product.Name)) {
                 return;
             }
 
-            _products.Add(product);
+            if (product is DogLeash dogLeash) {
+                dogLeashValidator.ValidateAndThrow(dogLeash);
+                products.Add(product);
 
-            if (SkipTheDictionaries) {
+                if (!SkipTheDictionaries && dogLeash != null) {
+                    DogLeashes.Add(product.Name, dogLeash);
+                }
                 return;
             }
 
-            if (product is DogLeash dogLeash && dogLeash != null) {
-                _DogLeashes.Add(product.Name, dogLeash);
-                return;
-            }
-            if (product is CatFood catFood && catFood != null) {
-                _CatFoods.Add(product.Name, catFood);
+            if (product is CatFood catFood) {
+                //TODO: need a catFood validator
+                products.Add(product);
+
+                if (!SkipTheDictionaries && catFood != null) {
+                    CatFoods.Add(product.Name, catFood);
+                }
                 return;
             }
         }
@@ -63,7 +77,7 @@ namespace Domain.Product {
             // how do we remove a product from the dictionary when we
             // only have the product's name. Will the product have the 
             // correct type if we get it from the list?
-            var product = _products.FirstOrDefault(p => p.Name == productName);
+            var product = products.FirstOrDefault(p => p.Name == productName);
             if (product != null) {
                 RemoveProduct(product);
             }
@@ -71,7 +85,7 @@ namespace Domain.Product {
         }
 
         public void RemoveProduct(Product product) {
-            _products.Remove(product);
+            products.Remove(product);
 
             // Don't bother checking SkipTheDictionaries here
             //   Dictionary.Remove will remove the product if it is in the
@@ -79,60 +93,48 @@ namespace Domain.Product {
             // BUT! do check the product type just in case we have products
             //  in both dictionaries with the same name.
             if (product is DogLeash) {
-                _DogLeashes.Remove(product.Name);
+                DogLeashes.Remove(product.Name);
             }
             if (product is CatFood) {
-                _CatFoods.Remove(product.Name);
+                CatFoods.Remove(product.Name);
             }
         }
 
-        public DogLeash? GetDogLeash(string name) {
-            try {
-                if (!SkipTheDictionaries) {
-                    return _DogLeashes[name];
-                }
+        // note that while this code is significantly better than
+        // individual GetDogLeash and GetCatFood methods, it still
+        // requires the caller to know the type beforehand.
+        public T? GetProduct<T>(string name) where T: Product{
+            if (string.IsNullOrEmpty(name)) return null;
+            var type = typeof(T);
+            if (!SkipTheDictionaries) {
 
-                return _products.Where(p => p is DogLeash)
-                    .FirstOrDefault(dl => dl.Name == name) as DogLeash;
-            } catch (Exception ex) {
-                // this really isn't the way TBH,
-                // avoid the exception if possible by checking 
-                // if name is in the dictionary (or don't use a
-                // dictionary for this)
-                logger.LogError(ex.Message);
+                if (type == typeof(DogLeash)) {
+                    return DogLeashes[name] as T;
+                }
+                if (type == typeof(CatFood)) {
+                    return CatFoods[name] as T;
+                    }
                 return null;
             }
+            return products.Where(p => p is T)
+                .FirstOrDefault(p => p.Name == name) as T;
         }
-
-        public CatFood? GetCatFood(string name) {
-            try {
-                if (!SkipTheDictionaries) {
-                    return _CatFoods[name];
-                }
-
-                return _products.Where(p => p is CatFood)
-                    .FirstOrDefault(cf => cf.Name == name) as CatFood;
-            } catch (Exception ex) {
-                logger.LogError(ex.Message);
-                return null;
-            }
-        }
-
+        
         // no need to call this 'GetAllProducts' the word 'All' doesn't
         //   add any value to the name.
         // also very unsafe to return the List as callers can 
         //   add or remove form it at will. better to return 
         //   the list as an IReadOnluyCollection.
         public IReadOnlyCollection<Product> GetProducts() {
-            return _products;
+            return products;
         }
 
-        public List<string> GetOnlyInStockProducts() {
-            return _products.InStock().Select(p => p.Name).ToList();
+        public IReadOnlyCollection<string> GetOnlyInStockProducts() {
+            return products.InStock().Select(p => p.Name).ToList();
         }
 
         public decimal GetTotalPriceOfInventory() {
-            return _products.InStock().Select(p => p.Price * p.Qty).Sum();
+            return products.InStock().Select(p => p.Price * p.Qty).Sum();
         }
     }
 }
