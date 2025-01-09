@@ -2,9 +2,12 @@
 
 
 using Domain.Product;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Utilities;
 
-IProductLogic ProductLogic = new ProductLogic();
+var services = CreateServiceCollection();
+var MyProductLogic = services.GetService<IProductLogic>();
 
 bool userIsDone = false;
 while (!userIsDone)
@@ -25,26 +28,26 @@ while (!userIsDone)
             break;
 
         case "1":
-            ProductLogic.AddProduct( GetDogLeashFromUser());
+            MyProductLogic.AddProduct( GetDogLeashFromUser());
             Console.WriteLine("Dog leash added.");
             break;
 
         case "2":
             var name = UIUtilities.GetStringFromUser("Enter the product name you want to view. ");
-            var leash = ProductLogic.GetDogLeash(name);
+            var leash = MyProductLogic.GetDogLeash(name);
             if (leash != null) {
-                Console.WriteLine(ProductLogic.GetDogLeash(name));
+                Console.WriteLine(MyProductLogic.GetDogLeash(name));
             } else {
                 Console.WriteLine($"The product '{name}' was not found.");
             }
             break;
         case "3":
-            var inStock = ProductLogic.GetOnlyInStockProducts();
+            var inStock = MyProductLogic.GetOnlyInStockProducts();
             Console.WriteLine("The following products are in stock: ");
             inStock.ForEach(p => Console.WriteLine(p));
             break;
         case "4":
-            Console.WriteLine($"The total inventory retail value is: {ProductLogic.GetTotalPriceOfInventory()}");
+            Console.WriteLine($"The total inventory retail value is: {MyProductLogic.GetTotalPriceOfInventory()}");
             break;
     }
     Console.WriteLine("===============================");
@@ -69,3 +72,10 @@ static DogLeash GetDogLeashFromUser()
 }
 
 
+IServiceProvider CreateServiceCollection () {
+    var servicecollection = new ServiceCollection()
+        .AddSingleton<IProductLogic, ProductLogic>()
+        .AddTransient<ILogger, SimpleLogger>();
+
+    return servicecollection.BuildServiceProvider();
+}

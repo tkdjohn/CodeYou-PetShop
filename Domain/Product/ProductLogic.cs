@@ -1,4 +1,5 @@
 ﻿using Domain.Product.Extensions;
+using Microsoft.Extensions.Logging;
 using Utilities;
 
 namespace Domain.Product {
@@ -8,6 +9,7 @@ namespace Domain.Product {
         // _products.Add() or _products.Remove()
         private readonly List<Product> _products = [];
 
+        private ILogger logger;
         // I'm not entirely sure why we are implementing
         // dictionaries for the individual product types.
         // But then again, I don't understand why we have
@@ -16,7 +18,10 @@ namespace Domain.Product {
         private readonly Dictionary<string, CatFood> _CatFoods = [];
 
         public bool SkipTheDictionaries { get; set; } = true;
-        public ProductLogic() {
+        public ProductLogic(ILogger logger) {
+            logger.LogDebug("We created a Product Logic");
+            this.logger = logger;
+
             // but lets not initialize _products here, lets do this
             // where _products is declared above.
             // _products = []; //shorthand for new List<Product>(); 
@@ -29,6 +34,7 @@ namespace Domain.Product {
         }
 
         public void AddProduct(Product product) {
+            logger.LogDebug("Adding a product");
             if (product is null) {
                 return;
             }
@@ -93,7 +99,7 @@ namespace Domain.Product {
                 // avoid the exception if possible by checking 
                 // if name is in the dictionary (or don't use a
                 // dictionary for this)
-                SimpleLogger.LogException(ex);
+                logger.LogError(ex.Message);
                 return null;
             }
         }
@@ -107,7 +113,7 @@ namespace Domain.Product {
                 return _products.Where(p => p is CatFood)
                     .FirstOrDefault(cf => cf.Name == name) as CatFood;
             } catch (Exception ex) {
-                SimpleLogger.LogException(ex);
+                logger.LogError(ex.Message);
                 return null;
             }
         }
