@@ -11,7 +11,7 @@ namespace Domain.Product.Validators {
             return new CatFoodValidator().Validate(catFood);
         }
 
-        public static ValidationResult Validate<T>(this IProduct product) {
+        public static ValidationResult Validate<T>(this Product product) {
             // really this is a bit awkward because we'll have to add code for every type of product
             // but... THAT is a much larger issue stemming form the fact that DogLeash and CatFood
             // aren't great objects (They are too specific/concrete. DurableProduct and PershibleProduct
@@ -35,7 +35,7 @@ namespace Domain.Product.Validators {
             new CatFoodValidator().ValidateAndThrow(catFood);
         }
 
-        public static void ValidateAndThrow<T>(this IProduct product) where T : IProduct {           
+        public static void ValidateAndThrow<T>(this Product product) where T : Product {           
             // really this is a bit awkward because we'll have to add code for every type of product
             // but... THAT is a much larger issue stemming form the fact that DogLeash and CatFood
             // aren't great objects (They are too specific/concrete. DurableProduct and PershibleProduct

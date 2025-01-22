@@ -15,11 +15,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Requirements", "Requirement
 		PetStore 4.md = PetStore 4.md
 		PetStore 5.md = PetStore 5.md
 		PetStore 6.md = PetStore 6.md
-		PetStore7.md = PetStore7.md
-		Petstore8.md = Petstore8.md
+		PetStore 7.md = PetStore 7.md
+		PetStore 8.md = PetStore 8.md
+		PetStore 9.md = PetStore 9.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{703AE199-342A-4E3A-B777-D56DE2BF97C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{11AAF02F-3D5E-4D89-B6D4-569284446419}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainService", "DomainService\DomainService.csproj", "{66A6260C-3F8C-4FF2-B352-FD32A6F6997B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +44,14 @@ Global
 		{703AE199-342A-4E3A-B777-D56DE2BF97C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{703AE199-342A-4E3A-B777-D56DE2BF97C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{703AE199-342A-4E3A-B777-D56DE2BF97C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11AAF02F-3D5E-4D89-B6D4-569284446419}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11AAF02F-3D5E-4D89-B6D4-569284446419}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11AAF02F-3D5E-4D89-B6D4-569284446419}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11AAF02F-3D5E-4D89-B6D4-569284446419}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66A6260C-3F8C-4FF2-B352-FD32A6F6997B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66A6260C-3F8C-4FF2-B352-FD32A6F6997B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66A6260C-3F8C-4FF2-B352-FD32A6F6997B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66A6260C-3F8C-4FF2-B352-FD32A6F6997B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
