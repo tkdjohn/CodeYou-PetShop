@@ -1,10 +1,10 @@
 ﻿namespace Domain.Product {
     public interface IProductLogic {
-        bool SkipTheDictionaries { get; set; }
-        void AddProduct(Product product);
+        void AddProduct<T>(IProduct product) where T :IProduct;
         T? GetProduct<T>(string name) where T: Product;
-        IReadOnlyCollection<Product> GetProducts();
-        void RemoveProduct(Product product);
+        IProduct? GetProduct(string name);
+        IReadOnlyCollection<IProduct> GetProducts();
+        void RemoveProduct(IProduct product);
         void RemoveProduct(string productName);
         IReadOnlyCollection<string> GetOnlyInStockProducts();
         decimal GetTotalPriceOfInventory();

@@ -10,6 +10,7 @@
 1. Once you finish that, test it.  Here's some JSON you can use:
 	```
 	{ "Price": 58.89, "Name": "Special dog leash", "Quantity": 23, "Description": "Magical leash that will help your dog not pull hard when going on walks", "Material": "Classified", "LengthInches": 12 }
+	{ "Price": 58.89, "Name": "Special dog leash 1", "Quantity": 23, "Description": "", "Material": "Classified", "LengthInches": 12 }
 	```
 1. Add the nuget package `FluentValidation`.
 1. Follow [this tutorial](https://docs.fluentvalidation.net/en/latest/start.html) to add a validator for `DogLeash`.  Add a folder in the solution for validators.
@@ -21,7 +22,7 @@
 1. Use the validator in the add method in `ProductLogic`.  Throw a `ValidationException` if the DogLeash isn't valid.
 1. Use the following JSON to test. The application should crash.
 	```
-	{ "Price": 58.89, "Name": "Special dog leash", "Quantity": -10, "Description": "Magical leash that will help your dog not pull hard when going on walks", "Material": "Classified", "LengthInches": 12 }
+	{ "Price": 0.00, "Name": "", "Quantity": -1, "Description": "short", "Material": "Classified", "LengthInches": -12}
 	```
 
 ## Generics
