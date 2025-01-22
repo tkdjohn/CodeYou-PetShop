@@ -22,6 +22,7 @@ while (!userIsDone)
     Console.WriteLine("Press 3 to view products that are in stock.");
     Console.WriteLine("Press 4 to view all products.");
     Console.WriteLine("Press 5 to view total retail value of inventory.");
+    Console.WriteLine("Press 8 to update a product by Id.");
     Console.WriteLine("Press 9 to add some test products.");
     Console.WriteLine("Type 'q' or 'exit' to quit.");
     
@@ -72,6 +73,19 @@ while (!userIsDone)
             var total = await ProductService.GetTotalPriceOfInventoryAsync().ConfigureAwait(false);
             Console.WriteLine($"The total inventory retail value is: {total}\n");
             break;
+        case "8":
+            var productUpdate = GetProductFromUser<Product>();
+            if (productUpdate != null) {
+               
+                if (! await ProductService.ProductExists(productUpdate.Id)) {
+                    Console.WriteLine($"Product not found. Adding.");
+                    await AddProduct(productUpdate);
+                    break;
+                }
+                Console.WriteLine($"Updating product Id {productUpdate.Id}");
+                await ProductService.UpdateProduct(productUpdate).ConfigureAwait(false);
+            }
+            break;
         case "9": //secret case to add some test products
             await AddTestProducts().ConfigureAwait(false);
             break;
@@ -107,6 +121,8 @@ async Task AddProduct<T>(T? newProduct) where T: Product {
 //TODO: *jws* could probably move this to UIUtilities
 static T? GetProductFromUser<T>() where T : Product {
     var json = UIUtilities.GetStringFromUser("Enter product JSON: ");
+    // Hacky way to forcibly ignore CreatedDate and LastUpdatedDate
+    json.Replace("CreatedDate", "no").Replace("LastUpdatedDate", "no2");
     return JsonSerializer.Deserialize<T>(json);
 }
 

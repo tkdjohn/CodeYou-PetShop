@@ -9,5 +9,7 @@ namespace DomainService {
         Task<List<Product>> GetProductsAsync();
         Task<List<Product>> GetInStockProductsAsync();
         Task<decimal> GetTotalPriceOfInventoryAsync();
+        Task UpdateProduct(Product productUpdate);
+        Task<bool> ProductExists(int Id);
     }
 }

@@ -49,5 +49,13 @@ namespace DomainService {
             var inStock = await products.GetInStockProductsAsync().ConfigureAwait(false);
             return inStock.Select(p => p.Price * p.Quantity).Sum();
         }
+
+        public async Task UpdateProduct(Product productUpdate) {
+            await products.UpdateProduct(productUpdate).ConfigureAwait(false);
+        }
+
+        public async Task<bool> ProductExists(int id) {
+            return await products.GetProductAsync(id).ConfigureAwait(false) != null;
+        }
     }
 }

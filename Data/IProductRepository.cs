@@ -8,5 +8,6 @@ namespace Data {
         Task<Product?> GetProductAsync(string name);
         Task<List<Product>> GetProductsAsync();
         Task<List<Product>> GetInStockProductsAsync();
+        Task UpdateProduct(Product productUpdate);
     }
 }
