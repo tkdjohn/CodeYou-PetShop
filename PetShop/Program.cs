@@ -22,6 +22,7 @@ while (!userIsDone)
     Console.WriteLine("Press 3 to view products that are in stock.");
     Console.WriteLine("Press 4 to view all products.");
     Console.WriteLine("Press 5 to view total retail value of inventory.");
+    Console.WriteLine("Press 9 to add some test products.");
     Console.WriteLine("Type 'q' or 'exit' to quit.");
     
     // application will block here waiting for user to press <Enter>

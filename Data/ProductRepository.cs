@@ -30,6 +30,8 @@ namespace Data {
             return await petShopDb.Products.Where(p  => p.Name == name).FirstOrDefaultAsync();
         }
         
+
+
         public async Task<List<Product>> GetProductsAsync() {
             // what we don't wan to do is return petShopDb.Products which would 
             // give the caller direct access to the database so we'll call .ToList()
