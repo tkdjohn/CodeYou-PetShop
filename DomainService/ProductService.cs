@@ -51,7 +51,7 @@ namespace DomainService {
         }
 
         public async Task UpdateProduct(Product productUpdate) {
-            await products.UpdateProduct(productUpdate).ConfigureAwait(false);
+            await products.UpdateProductAsync(productUpdate).ConfigureAwait(false);
         }
 
         public async Task<bool> ProductExists(int id) {

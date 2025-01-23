@@ -43,7 +43,7 @@ namespace Data {
             return await petShopDb.Products.Where(p => p.Quantity > 0).ToListAsync().ConfigureAwait(false);
         }
 
-        public async Task UpdateProduct(Product productUpdate) {
+        public async Task UpdateProductAsync(Product productUpdate) {
             ArgumentNullException.ThrowIfNull(productUpdate);
             var existingProduct = await petShopDb.Products.FindAsync(productUpdate.Id).ConfigureAwait(false) 
                 ?? throw new InvalidOperationException($"Product Id {productUpdate.Id} not found.");
