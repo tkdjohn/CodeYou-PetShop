@@ -45,8 +45,8 @@ namespace Data {
 
         public async Task UpdateProductAsync(Product productUpdate) {
             ArgumentNullException.ThrowIfNull(productUpdate);
-            var existingProduct = await petShopDb.Products.FindAsync(productUpdate.Id).ConfigureAwait(false) 
-                ?? throw new InvalidOperationException($"Product Id {productUpdate.Id} not found.");
+            var existingProduct = await petShopDb.Products.FindAsync(productUpdate.ProductId).ConfigureAwait(false) 
+                ?? throw new InvalidOperationException($"Product Id {productUpdate.ProductId} not found.");
 
             existingProduct.Name = productUpdate.Name;
             existingProduct.Price = productUpdate.Price;
