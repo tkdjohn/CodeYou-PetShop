@@ -77,12 +77,12 @@ while (!userIsDone)
             var productUpdate = GetProductFromUser<Product>();
             if (productUpdate != null) {
                
-                if (! await ProductService.ProductExists(productUpdate.Id)) {
+                if (! await ProductService.ProductExists(productUpdate.ProductId)) {
                     Console.WriteLine($"Product not found. Adding.");
                     await AddProduct(productUpdate);
                     break;
                 }
-                Console.WriteLine($"Updating product Id {productUpdate.Id}");
+                Console.WriteLine($"Updating product Id {productUpdate.ProductId}");
                 await ProductService.UpdateProduct(productUpdate).ConfigureAwait(false);
             }
             break;
