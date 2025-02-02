@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 
 namespace Domain.Product.Validators {
-    public class ProductValidator : AbstractValidator<IProduct> {
+    public class ProductValidator : AbstractValidator<Product> {
         public ProductValidator() {
             RuleFor(p => p.Name)
                 .NotEmpty()
