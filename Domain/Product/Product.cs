@@ -1,7 +1,9 @@
 ﻿using System.Text.Json;
 
+//TODO: add an EntityBase class to both show inheritance
+// and how useful base entities are with EF
 namespace Domain.Product {
-    public class Product : IProduct {
+    public class Product :BaseEntity {
         public string Name { get; set; } = "";
         public string Description { get; set; } = "";
         public int Quantity { get; set; } = 0;
