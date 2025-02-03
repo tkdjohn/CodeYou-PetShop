@@ -7,7 +7,7 @@ namespace DomainEntities.Validators {
                 .NotEmpty()
                 .WithMessage("An order must have at least one product.");
             RuleFor(o => o.OrderDate)
-                .LessThanOrEqualTo(DateTime.Now.AddDays(-7))
+                .GreaterThanOrEqualTo(DateTime.Now.AddDays(-7))
                 .WithMessage("Orders cannot be older than 1 week.");
         }
     }

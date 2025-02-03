@@ -7,10 +7,11 @@ namespace DomainEntities {
         [Required]
         public DateTime OrderDate { get; set; }
         [Required]
+        //TODO: make readonly (expose as IReadOnlyList with backing private list)
         public List<OrderProduct> OrderProducts { get; set; } = [];
         //TODO: Add Shipping Address once address entity and service exist.
 
-        public override string ToString() => Serialize(this);
+        public override string ToString() => this.Serialize();
 
         public void AddItem(Product product, int quantity) {
             throw new NotImplementedException();

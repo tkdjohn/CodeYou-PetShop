@@ -12,11 +12,12 @@ namespace DomainService {
         private readonly IProductRepository products = productDb;
         private readonly ILogger logger = logger;
 
-        public async Task<Product> AddProductAsync<T>(Product product) where T : Product {
+        public async Task<Product> AddProductAsync(Product product) {
             ArgumentNullException.ThrowIfNull(product);
-            product.ValidateAndThrow<T>();
-            logger.LogDebug("Adding a {Type}", typeof(T));
-            return await products.AddAsync(product).ConfigureAwait(false);
+            product.ValidateAndThrow();
+            product = await products.AddAsync(product).ConfigureAwait(false);
+            logger.LogDebug("Added Product Id {ProductId} with Name {Name}", product.ProductId, product.Name);
+            return product;
         }
 
         public async Task RemoveProductAsync(Product product) {

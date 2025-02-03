@@ -17,13 +17,5 @@ namespace DomainEntities {
             LastUpdatedDate = DateTime.Now;
             CreatedDate = DateTime.Now;
         }
-
-        public static T? Deserialize<T>(string json) where T : BaseEntity {
-            return JsonSerializer.Deserialize<T>(json);
-        }
-
-        public static string Serialize<T>(T entity) where T : BaseEntity {
-            return JsonSerializer.Serialize(entity);
-        }
     }
 }

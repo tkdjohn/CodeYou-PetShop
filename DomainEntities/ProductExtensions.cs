@@ -2,14 +2,17 @@
 
 namespace DomainEntities {
     public static class ProductExtensions {
-        public static string Serialize<T>(this T product) where T : Product {
-            if (product is DogLeash dogLeash && dogLeash != null) {
-                return JsonSerializer.Serialize(dogLeash);
+        public static string Serialize<T>(this T entity) where T : BaseEntity {
+            if (entity is Product product && product != null) {
+                return JsonSerializer.Serialize(product);
             }
-            if (product is CatFood catFood && catFood != null) {
-                return JsonSerializer.Serialize(catFood);
+            if (entity is Order order && order != null) {
+                return JsonSerializer.Serialize(order);
             }
-            return JsonSerializer.Serialize(product);
+            return JsonSerializer.Serialize(entity);
+        }
+        public static T? Deserialize<T>(this string json) where T : BaseEntity {
+            return JsonSerializer.Deserialize<T>(json);
         }
     }
 }

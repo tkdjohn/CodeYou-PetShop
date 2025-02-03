@@ -2,7 +2,7 @@
 
 namespace DomainService {
     public interface IProductService {
-        Task<Product> AddProductAsync<T>(Product product) where T : Product;
+        Task<Product> AddProductAsync(Product product);
         Task RemoveProductAsync(Product product);
         Task<Product?> GetProductAsync(int id);
         Task<Product?> GetProductAsync(string name);

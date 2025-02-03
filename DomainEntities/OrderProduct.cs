@@ -15,7 +15,8 @@ namespace DomainEntities {
         public int ProductId { get; set; }
 
         [Required]
-        public int OrderQuantity { get; private set; }
+        //TODO: make readonly (private set)
+        public int OrderQuantity { get;  set; }
 
         [Required]
         public decimal UnitPrice { get; set; }

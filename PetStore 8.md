@@ -11,7 +11,7 @@
 	```
 	{ "Price": 58.89, "Name": "Special dog leash", "Quantity": 23, "Description": "Magical leash that will help your dog not pull hard when going on walks", "Material": "Classified", "LengthInches": 12 }
 	{ "Price": 58.89, "Name": "Special dog leash 1", "Quantity": 23, "Description": "", "Material": "Classified", "LengthInches": 12 }
-	{ "WeightPounds": 1, "KittenFood": true, "Name": "In Stock", "Description": "", "Quantity": 12, "Price": 15.99}
+	{ "WeightPounds": 1, "KittenFood": true, "Name": "Fancy Feast", "Description": "", "Quantity": 12, "Price": 15.99}
 	```
 1. Add the nuget package `FluentValidation`.
 1. Follow [this tutorial](https://docs.fluentvalidation.net/en/latest/start.html) to add a validator for `DogLeash`.  Add a folder in the solution for validators.
