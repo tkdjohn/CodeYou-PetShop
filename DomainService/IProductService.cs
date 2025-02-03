@@ -1,4 +1,4 @@
-﻿using Domain.Product;
+﻿using DomainEntities;
 
 namespace DomainService {
     public interface IProductService {

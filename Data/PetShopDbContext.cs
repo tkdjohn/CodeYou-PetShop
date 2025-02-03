@@ -1,10 +1,12 @@
-﻿using Domain.Product;
+﻿using DomainEntities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data {
     public class PetShopDbContext : DbContext, IPetShopDbContext {
         public DbSet<Product> Products { get; set; }
-
+        public DbSet<Order> Orders { get; set; }
+        //Note that there is no list for OrderProducts here. That's because any 
+        // manipulation of OrderProducts should happen through the Order repository.
         public string DbPath { get; }
 
         public PetShopDbContext() {

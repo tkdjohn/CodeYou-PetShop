@@ -1,8 +1,8 @@
 ﻿using System.Text.Json;
 
-namespace Domain.Product {
+namespace DomainEntities {
     public static class ProductExtensions {
-        public static string Serialize<T>(this T product) where T: Product {
+        public static string Serialize<T>(this T product) where T : Product {
             if (product is DogLeash dogLeash && dogLeash != null) {
                 return JsonSerializer.Serialize(dogLeash);
             }

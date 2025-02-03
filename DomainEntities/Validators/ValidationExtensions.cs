@@ -1,7 +1,8 @@
-﻿using FluentValidation;
+﻿using DomainEntities.Validators;
+using FluentValidation;
 using FluentValidation.Results;
 
-namespace Domain.Product.Validators {
+namespace DomainEntities.Validators {
     public static class ValidatorExtensions {
         public static ValidationResult Validate(this DogLeash dogLeash) {
             return new DogLeashValidator().Validate(dogLeash);
@@ -45,7 +46,7 @@ namespace Domain.Product.Validators {
             new ProductValidator().ValidateAndThrow(product);
         }
 
-        public static void ValidateAndThrow<T>(this Product product) where T : Product {           
+        public static void ValidateAndThrow<T>(this Product product) where T : Product {
             // really this is a bit awkward because we'll have to add code for every type of product
             // but... THAT is a much larger issue stemming form the fact that DogLeash and CatFood
             // aren't great objects (They are too specific/concrete. DurableProduct and PershibleProduct
@@ -54,13 +55,26 @@ namespace Domain.Product.Validators {
                 dogleash.ValidateAndThrow();
             }
 
-            if (product is CatFood catfood) { 
-                catfood.ValidateAndThrow(); 
+            if (product is CatFood catfood) {
+                catfood.ValidateAndThrow();
             }
 
-            if (product is not null) {
-                product.ValidateAndThrow();
-            }
+            product?.ValidateAndThrow();
+        }
+
+        public static ValidationResult Validate(this Order order) {
+            return new OrderValidator().Validate(order);
+        }
+
+        public static void ValidateAndThrow(this Order order) {
+            new OrderValidator().ValidateAndThrow(order);
+        }
+        public static ValidationResult Validate(this OrderProduct orderProduct) {
+            return new OrderProductValidator().Validate(orderProduct);
+        }
+
+        public static void ValidateAndThrow(this OrderProduct orderProduct) {
+            new OrderProductValidator().ValidateAndThrow(orderProduct);
         }
     }
 }

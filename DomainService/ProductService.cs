@@ -1,27 +1,21 @@
 ﻿using Data;
-using Domain.Product;
-using Domain.Product.Validators;
+using DomainEntities;
+using DomainEntities.Validators;
 using FluentValidation;
 using Microsoft.Extensions.Logging;
 
 namespace DomainService {
-    public class ProductService : IProductService {
+    public class ProductService(ILogger logger, IProductRepository productDb) : IProductService {
         // This readonly means we can't assign a new List to 
         // products. It doesn't mean we can't call
         // products.Add() or _products.Remove()
-        private readonly IProductRepository products;
-        private ILogger logger;
-
-        //public bool SkipTheDictionaries { get; set; } = true;
-        public ProductService(ILogger logger, IProductRepository productDb) {
-            this.logger = logger;
-            this.products = productDb;
-        }
+        private readonly IProductRepository products = productDb;
+        private readonly ILogger logger = logger;
 
         public async Task<Product> AddProductAsync<T>(Product product) where T : Product {
             ArgumentNullException.ThrowIfNull(product);
             product.ValidateAndThrow<T>();
-            logger.LogDebug($"Adding a {typeof(T)}");
+            logger.LogDebug("Adding a {Type}", typeof(T));
             return await products.AddAsync(product).ConfigureAwait(false);
         }
 
@@ -30,32 +24,33 @@ namespace DomainService {
         }
 
         public async Task<Product?> GetProductAsync(int id) {
-            return await products.GetProductAsync(id).ConfigureAwait(false);
+            return await products.GetAsync(id).ConfigureAwait(false);
         }
         
         public async Task<Product?> GetProductAsync(string name) {
-            return await products.GetProductAsync(name).ConfigureAwait(false);
+            return await products.GetAsync(name).ConfigureAwait(false);
         }
 
         public async Task<List<Product>> GetProductsAsync() {
-            return await products.GetProductsAsync().ConfigureAwait(false);
+            return await products.GetAsync().ConfigureAwait(false);
         }
 
         public async Task<List<Product>> GetInStockProductsAsync() {
-            return await products.GetInStockProductsAsync().ConfigureAwait(false);
+            return await products.GetInStockAsync().ConfigureAwait(false);
         }
 
         public async Task<decimal> GetTotalPriceOfInventoryAsync() {
-            var inStock = await products.GetInStockProductsAsync().ConfigureAwait(false);
+            var inStock = await products.GetInStockAsync().ConfigureAwait(false);
             return inStock.Select(p => p.Price * p.Quantity).Sum();
         }
 
         public async Task UpdateProduct(Product productUpdate) {
-            await products.UpdateProductAsync(productUpdate).ConfigureAwait(false);
+            productUpdate.ValidateAndThrow();
+            await products.UpdateAsync(productUpdate).ConfigureAwait(false);
         }
 
         public async Task<bool> ProductExists(int id) {
-            return await products.GetProductAsync(id).ConfigureAwait(false) != null;
+            return await products.GetAsync(id).ConfigureAwait(false) != null;
         }
     }
 }

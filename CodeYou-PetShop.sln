@@ -18,9 +18,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Requirements", "Requirement
 		PetStore 7.md = PetStore 7.md
 		PetStore 8.md = PetStore 8.md
 		PetStore 9.md = PetStore 9.md
+		PetStore10.md = PetStore10.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{703AE199-342A-4E3A-B777-D56DE2BF97C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainEntities", "DomainEntities\DomainEntities.csproj", "{703AE199-342A-4E3A-B777-D56DE2BF97C2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{11AAF02F-3D5E-4D89-B6D4-569284446419}"
 EndProject

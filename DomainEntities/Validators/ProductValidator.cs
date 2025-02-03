@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Domain.Product.Validators {
+namespace DomainEntities.Validators {
     public class ProductValidator : AbstractValidator<Product> {
         public ProductValidator() {
             RuleFor(p => p.Name)
