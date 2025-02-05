@@ -2,6 +2,7 @@
 
 
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using PetShop.Data;
@@ -73,7 +74,14 @@ while (!userIsDone) {
 }
 static IServiceProvider CreateServiceCollection() {
     var servicecollection = new ServiceCollection()
-        .AddDbContext<IPetShopDbContext, DatabaseContext>()
+        .AddDbContext<IDatabaseContext, DatabaseContext>(options => {
+            // The following configures EF to create a Sqlite database file in the
+            // special "local" folder for your platform.
+            var folder = Environment.SpecialFolder.LocalApplicationData;
+            var path = Environment.GetFolderPath(folder);
+            var DbPath = Path.Join(path, "PetShop.db");
+            options.UseSqlite($"Data Source={DbPath}");
+        })
         .AddSingleton<IProductRepository, ProductRepository>()
         .AddSingleton<IOrderRepository, OrderRepository>()
         .AddSingleton<IProductService, ProductService>()

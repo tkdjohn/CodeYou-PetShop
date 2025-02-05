@@ -2,24 +2,21 @@
 using PetShop.DomainEntities;
 
 namespace PetShop.Data {
-    public class DatabaseContext : DbContext, IPetShopDbContext {
+    public class DatabaseContext : DbContext, IDatabaseContext {
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
         //Note that there is no DbSet for OrderProducts here. That's because any 
         // manipulation of OrderProducts should happen through the Order repository
         // and therefore gets saved along with and as part of the Orders DbSet.
-        public string DbPath { get; }
 
-        public DatabaseContext() {
-            var folder = Environment.SpecialFolder.LocalApplicationData;
-            var path = Environment.GetFolderPath(folder);
-            DbPath = Path.Join(path, "PetShop.db");
+        public DatabaseContext(DbContextOptions<DatabaseContext> options ): base(options) {
+            
         }
-
         // The following configures EF to create a Sqlite database file in the
         // special "local" folder for your platform.
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite($"Data Source={DbPath}");
+        protected override void OnConfiguring(DbContextOptionsBuilder options) { 
+            
+        }
 
         public Task SaveChangesAsync() {
             return base.SaveChangesAsync();

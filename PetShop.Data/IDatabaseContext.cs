@@ -2,8 +2,7 @@
 using PetShop.DomainEntities;
 
 namespace PetShop.Data {
-    public interface IPetShopDbContext {
-        string DbPath { get; }
+    public interface IDatabaseContext {
         DbSet<Order> Orders { get; }
         DbSet<Product> Products { get; }
 

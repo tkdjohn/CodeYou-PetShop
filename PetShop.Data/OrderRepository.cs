@@ -2,8 +2,8 @@
 using PetShop.DomainEntities;
 
 namespace PetShop.Data {
-    public class OrderRepository(IPetShopDbContext petShopDb) : IOrderRepository {
-        private readonly IPetShopDbContext petShopDb = petShopDb;
+    public class OrderRepository(IDatabaseContext petShopDb) : IOrderRepository {
+        private readonly IDatabaseContext petShopDb = petShopDb;
 
         public async Task<Order> AddAsync(Order order) {
             var dbRow = await petShopDb.Orders.AddAsync(order).ConfigureAwait(false);

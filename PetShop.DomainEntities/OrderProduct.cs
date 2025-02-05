@@ -19,7 +19,7 @@ namespace PetShop.DomainEntities {
         [Required]
         public int OrderQuantity {
             get => orderQuantity;
-            internal set => SetQuantity(value);
+            set => SetQuantity(value);
         }
         private int orderQuantity;
 
