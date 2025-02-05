@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShop", "PetShop\PetShop.csproj", "{41F92AA0-8ED9-4AFF-BE0C-00F60242243C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShop.CLI", "PetShop.CLI\PetShop.CLI.csproj", "{41F92AA0-8ED9-4AFF-BE0C-00F60242243C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utilities", "Utilities\Utilities.csproj", "{885C00FE-C7EB-44D5-9D38-6A9168D49063}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShop.Utilities", "PetShop.Utilities\PetShop.Utilities.csproj", "{885C00FE-C7EB-44D5-9D38-6A9168D49063}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Requirements", "Requirements", "{D67CE162-6176-4436-B8D4-836323939D38}"
 	ProjectSection(SolutionItems) = preProject
@@ -21,11 +21,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Requirements", "Requirement
 		PetStore10.md = PetStore10.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainEntities", "DomainEntities\DomainEntities.csproj", "{703AE199-342A-4E3A-B777-D56DE2BF97C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShop.DomainEntities", "PetShop.DomainEntities\PetShop.DomainEntities.csproj", "{703AE199-342A-4E3A-B777-D56DE2BF97C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{11AAF02F-3D5E-4D89-B6D4-569284446419}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShop.Data", "PetShop.Data\PetShop.Data.csproj", "{11AAF02F-3D5E-4D89-B6D4-569284446419}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainService", "DomainService\DomainService.csproj", "{66A6260C-3F8C-4FF2-B352-FD32A6F6997B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShop.DomainService", "PetShop.DomainService\PetShop.DomainService.csproj", "{66A6260C-3F8C-4FF2-B352-FD32A6F6997B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
