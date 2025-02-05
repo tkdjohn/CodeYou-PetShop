@@ -9,7 +9,7 @@ using PetShop.Data;
 #nullable disable
 
 namespace Data.Migrations {
-    [DbContext(typeof(PetShopDbContext))]
+    [DbContext(typeof(DatabaseContext))]
     [Migration("20250202210504_renameIdToProductId")]
     partial class renameIdToProductId
     {

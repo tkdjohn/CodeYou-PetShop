@@ -8,7 +8,7 @@ using PetShop.Data;
 #nullable disable
 
 namespace Data.Migrations {
-    [DbContext(typeof(PetShopDbContext))]
+    [DbContext(typeof(DatabaseContext))]
     [Migration("20250122052525_InitialCreate")]
     partial class InitialCreate
     {

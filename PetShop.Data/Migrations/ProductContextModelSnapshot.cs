@@ -9,7 +9,7 @@ using PetShop.Data;
 
 namespace Data.Migrations
 {
-    [DbContext(typeof(PetShopDbContext))]
+    [DbContext(typeof(DatabaseContext))]
     partial class ProductContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

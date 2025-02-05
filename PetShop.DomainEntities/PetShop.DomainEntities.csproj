@@ -11,8 +11,4 @@
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\PetShop.Utilities\PetShop.Utilities.csproj" />
-  </ItemGroup>
-
 </Project>

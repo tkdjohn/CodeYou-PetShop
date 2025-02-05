@@ -2,14 +2,15 @@
 using PetShop.DomainEntities;
 
 namespace PetShop.Data {
-    public class PetShopDbContext : DbContext, IPetShopDbContext {
+    public class DatabaseContext : DbContext, IPetShopDbContext {
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
-        //Note that there is no list for OrderProducts here. That's because any 
-        // manipulation of OrderProducts should happen through the Order repository.
+        //Note that there is no DbSet for OrderProducts here. That's because any 
+        // manipulation of OrderProducts should happen through the Order repository
+        // and therefore gets saved along with and as part of the Orders DbSet.
         public string DbPath { get; }
 
-        public PetShopDbContext() {
+        public DatabaseContext() {
             var folder = Environment.SpecialFolder.LocalApplicationData;
             var path = Environment.GetFolderPath(folder);
             DbPath = Path.Join(path, "PetShop.db");

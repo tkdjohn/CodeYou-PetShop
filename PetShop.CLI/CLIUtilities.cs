@@ -1,5 +1,5 @@
 ﻿namespace PetShop.Utilities {
-    public static class UIUtilities {
+    public static class CLIUtilities {
         public static string GetStringFromUser(string prompt) {
             string? userInput = null;
 

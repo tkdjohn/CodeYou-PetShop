@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("PetShop.DomainEntities.Tests")]
 namespace PetShop.DomainEntities {
     public class OrderProduct : EntityBase {
         [Key]
@@ -15,24 +17,28 @@ namespace PetShop.DomainEntities {
         public int ProductId { get; set; }
 
         [Required]
-        //TODO: make readonly (private set)
-        public int OrderQuantity { get; set; }
+        public int OrderQuantity {
+            get => orderQuantity;
+            internal set => SetQuantity(value);
+        }
+        private int orderQuantity;
 
         [Required]
         public decimal UnitPrice { get; set; }
 
-        internal void AddQuantity(int quantity) {
-            OrderQuantity += quantity;
-            if (OrderQuantity < 0) {
-                OrderQuantity = 0;
+        internal int SetQuantity(int value) {
+            orderQuantity = value;
+            if (orderQuantity < 0) {
+                orderQuantity = 0;
             }
+            return OrderQuantity;
         }
 
-        internal void UpdateQuantity(int quantity) {
-            OrderQuantity = quantity;
-            if (OrderQuantity < 0) {
-                OrderQuantity = 0;
-            }
+        internal int AddQuantity(int value) {
+            // use OrderQuantity property here to take advantage of checks in SetQuantity/
+            // instead of accessing the backing private property directly.
+            OrderQuantity += value;
+            return OrderQuantity;
         }
     }
 }

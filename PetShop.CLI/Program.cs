@@ -28,7 +28,7 @@ while (!userIsDone) {
     Console.WriteLine("Type 'q' to quit.");
 
     // application will block here waiting for user to press <Enter>
-    var userInput = UIUtilities.GetStringFromUser("===> ").ToLower() ?? "";
+    var userInput = CLIUtilities.GetStringFromUser("===> ").ToLower() ?? "";
 
     switch (userInput) {
         case "exit":
@@ -73,7 +73,7 @@ while (!userIsDone) {
 }
 static IServiceProvider CreateServiceCollection() {
     var servicecollection = new ServiceCollection()
-        .AddDbContext<IPetShopDbContext, PetShopDbContext>()
+        .AddDbContext<IPetShopDbContext, DatabaseContext>()
         .AddSingleton<IProductRepository, ProductRepository>()
         .AddSingleton<IOrderRepository, OrderRepository>()
         .AddSingleton<IProductService, ProductService>()
@@ -100,7 +100,7 @@ static async Task DeleteAllData(IProductService productService, IOrderService or
 }
 
 static T? GetEntityFromUser<T>() where T : EntityBase {
-    var json = UIUtilities.GetStringFromUser($"Enter {typeof(T)} JSON: ");
+    var json = CLIUtilities.GetStringFromUser($"Enter {typeof(T)} JSON: ");
     T? entity = json.Deserialize<T>();
     if (entity == null) {
         Console.WriteLine("Invalid JSON.");
@@ -144,7 +144,7 @@ async Task AddEntity<T>(T? newEntity) where T : EntityBase {
 }
 
 async Task ViewProduct() {
-    var name = UIUtilities.GetStringFromUser("Enter the product name you want to view: ");
+    var name = CLIUtilities.GetStringFromUser("Enter the product name you want to view: ");
     var product = await ProductService.GetProductAsync(name).ConfigureAwait(false);
     if (product == null) {
         Console.WriteLine($"The product '{name}' was not found.\n");
@@ -155,7 +155,7 @@ async Task ViewProduct() {
 }
 
 async Task ViewOrder() {
-    var orderId = UIUtilities.GetIntFromUser("Enter the order id you want to view: ");
+    var orderId = CLIUtilities.GetIntFromUser("Enter the order id you want to view: ");
     var order = await OrderService.GetOrderAsync(orderId).ConfigureAwait(false);
     if (order == null) {
         Console.WriteLine($"Order Id {orderId} was not found.\n");

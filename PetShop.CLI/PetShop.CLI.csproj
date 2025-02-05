@@ -16,7 +16,6 @@
     <ProjectReference Include="..\PetShop.Data\PetShop.Data.csproj" />
     <ProjectReference Include="..\PetShop.DomainEntities\PetShop.DomainEntities.csproj" />
     <ProjectReference Include="..\PetShop.DomainService\PetShop.DomainService.csproj" />
-    <ProjectReference Include="..\PetShop.Utilities\PetShop.Utilities.csproj" />
   </ItemGroup>
 
 </Project>

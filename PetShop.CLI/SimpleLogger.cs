@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 
 namespace PetShop.Utilities {
+    //TODO: replace with a microsoft logger that uses ConsoleLoggingExtensions
     public class SimpleLogger : ILogger {
         public IDisposable? BeginScope<TState>(TState state) where TState : notnull {
             throw new NotImplementedException();
