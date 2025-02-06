@@ -5,12 +5,12 @@ using PetShop.DomainEntities;
 using PetShop.DomainEntities.Validators;
 
 namespace PetShop.DomainService {
-    public class ProductService(ILogger logger, IProductRepository productDb) : IProductService {
+    public class ProductService(ILogger<ProductService> logger, IProductRepository productDb) : IProductService {
         // This readonly means we can't assign a new List to 
         // products. It doesn't mean we can't call
         // products.Add() or _products.Remove()
         private readonly IProductRepository products = productDb;
-        private readonly ILogger logger = logger;
+        private readonly ILogger<ProductService> logger = logger;
 
         public async Task<Product> AddProductAsync(Product product) {
             ArgumentNullException.ThrowIfNull(product);

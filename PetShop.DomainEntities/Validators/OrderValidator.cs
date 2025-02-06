@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using PetShop.DomainEntities;
 
 namespace PetShop.DomainEntities.Validators {
     public class OrderValidator : AbstractValidator<Order> {

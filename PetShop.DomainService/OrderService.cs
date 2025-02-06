@@ -4,9 +4,9 @@ using PetShop.DomainEntities;
 using PetShop.DomainEntities.Validators;
 
 namespace PetShop.DomainService {
-    public class OrderService(ILogger logger, IOrderRepository orderDb) : IOrderService {
+    public class OrderService(ILogger<OrderService> logger, IOrderRepository orderDb) : IOrderService {
         private readonly IOrderRepository orders = orderDb;
-        private readonly ILogger logger = logger;
+        private readonly ILogger<OrderService> logger = logger;
 
         public async Task<Order> AddOrderAsync(Order order) {
             ArgumentNullException.ThrowIfNull(order);

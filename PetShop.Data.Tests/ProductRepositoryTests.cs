@@ -36,7 +36,7 @@ public class ProductRepositoryTests {
         };
 
         // Act
-        var actual = await productRepository.AddAsync(product);
+        Product actual = await productRepository.AddAsync(product);
 
         // Assert
         Assert.AreEqual(product, actual);

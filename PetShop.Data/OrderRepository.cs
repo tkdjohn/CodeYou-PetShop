@@ -18,8 +18,7 @@ namespace PetShop.Data {
         }
 
         public async Task<Order?> GetAsync(int orderId) {
-            return await petShopDb
-                .Orders
+            return await petShopDb.Orders
                 .Include(x => x.OrderProducts)
                 .FirstOrDefaultAsync(o => o.OrderId == orderId)
                 .ConfigureAwait(false);
@@ -29,7 +28,10 @@ namespace PetShop.Data {
             // what we don't wan to do is return petShopDb.Orders which would 
             // give the caller direct access to the database so we'll call .ToList()
             // to get a List instead. 
-            return await petShopDb.Orders.ToListAsync().ConfigureAwait(false);
+            return await petShopDb.Orders
+                .Include(x => x.OrderProducts)
+                .ToListAsync()
+                .ConfigureAwait(false);
         }
 
         public async Task UpdateAsync(Order orderUpdate) {

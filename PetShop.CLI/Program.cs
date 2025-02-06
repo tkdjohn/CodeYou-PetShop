@@ -5,6 +5,7 @@ using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using PetShop.Data;
 using PetShop.DomainEntities;
 using PetShop.DomainEntities.Validators;
@@ -31,42 +32,41 @@ while (!userIsDone) {
     // application will block here waiting for user to press <Enter>
     var userInput = CLIUtilities.GetStringFromUser("===> ").ToLower() ?? "";
 
-    switch (userInput) {
-        case "exit":
-        case "q":
+    switch (userInput[0]) {
+        case 'q':
             userIsDone = true;
             break;
-        case "1":
+        case '1':
             await AddUpdateEntity(GetEntityFromUser<Product>()).ConfigureAwait(false);
             break;
-        case "2":
+        case '2':
             await ViewProduct().ConfigureAwait(false);
             break;
-        case "3":
+        case '3':
             await ViewInStockProducts().ConfigureAwait(false);
             break;
-        case "4":
+        case '4':
             await ViewAllProduct().ConfigureAwait(false);
             break;
-        case "5":
+        case '5':
 
             break;
-        case "6":
+        case '6':
             await AddUpdateEntity(GetEntityFromUser<Order>()).ConfigureAwait(false);
             break;
-        case "7":
+        case '7':
             await ViewOrder().ConfigureAwait(false);
             break;
-        case "8":
+        case '8':
             await ViewallOrders().ConfigureAwait(false);
             break;
-        case "9":
+        case '9':
 
             break;
-        case "a": 
+        case 'a': 
             await AddTestData(ProductService, OrderService).ConfigureAwait(false);
             break;
-        case "x":
+        case 'x':
             await DeleteAllData(ProductService, OrderService).ConfigureAwait(false);
             break;
     }
@@ -86,7 +86,16 @@ static IServiceProvider CreateServiceCollection() {
         .AddSingleton<IOrderRepository, OrderRepository>()
         .AddSingleton<IProductService, ProductService>()
         .AddSingleton<IOrderService, OrderService>()
-        .AddTransient<ILogger, SimpleLogger>();
+        .AddLogging(options => {
+            options.AddDebug();
+            options.SetMinimumLevel(LogLevel.Debug);
+            options.AddSimpleConsole(options => {
+                options.SingleLine = true;
+                options.TimestampFormat = "HH:mm:ss.fff ";
+                options.ColorBehavior = Microsoft.Extensions.Logging.Console.LoggerColorBehavior.Enabled;
+            });
+        });
+
 
     return servicecollection.BuildServiceProvider();
 }
