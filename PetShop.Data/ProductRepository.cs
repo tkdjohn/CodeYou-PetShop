@@ -26,17 +26,14 @@ namespace PetShop.Data {
             return await petShopDb.Products.Where(p => p.Name == name).FirstOrDefaultAsync();
         }
 
-        public async Task<List<Product>> GetAsync() {
+        public async Task<List<Product>> GetAsync(bool InStockOnly)  {
             // what we don't wan to do is return petShopDb.Products which would 
             // give the caller direct access to the database so we'll call .ToList()
             // to get a List instead. 
+            if (InStockOnly) {
+                return await petShopDb.Products.Where(p => p.Quantity > 0).ToListAsync().ConfigureAwait(false);
+            }
             return await petShopDb.Products.ToListAsync().ConfigureAwait(false);
-        }
-
-        // There is likely a way to gain some code reuse by making a more generic search
-        // available. 
-        public async Task<List<Product>> GetInStockAsync() {
-            return await petShopDb.Products.Where(p => p.Quantity > 0).ToListAsync().ConfigureAwait(false);
         }
 
         public async Task UpdateAsync(Product productUpdate) {

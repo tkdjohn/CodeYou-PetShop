@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShop.CLI", "PetShop.CLI\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Requirements", "Requirements", "{D67CE162-6176-4436-B8D4-836323939D38}"
 	ProjectSection(SolutionItems) = preProject
+		PetShop11.md = PetShop11.md
 		Petstore 1.md = Petstore 1.md
 		PetStore 2.md = PetStore 2.md
 		PetStore 3.md = PetStore 3.md
@@ -35,6 +36,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShop.DomainService.Tests", "PetShop.DomainService.Tests\PetShop.DomainService.Tests.csproj", "{EC653723-A0F4-4EBF-AE2E-555EEE14853E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShop.WebApi", "PetShop.WebApi\PetShop.WebApi.csproj", "{74697302-86C5-4C8D-84C1-F3328002D5A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -70,6 +73,10 @@ Global
 		{EC653723-A0F4-4EBF-AE2E-555EEE14853E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC653723-A0F4-4EBF-AE2E-555EEE14853E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC653723-A0F4-4EBF-AE2E-555EEE14853E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74697302-86C5-4C8D-84C1-F3328002D5A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74697302-86C5-4C8D-84C1-F3328002D5A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74697302-86C5-4C8D-84C1-F3328002D5A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74697302-86C5-4C8D-84C1-F3328002D5A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
