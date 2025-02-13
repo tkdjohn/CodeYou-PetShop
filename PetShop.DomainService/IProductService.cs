@@ -6,7 +6,7 @@ namespace PetShop.DomainService {
         Task RemoveProductAsync(Product product);
         Task<Product?> GetProductAsync(int id);
         Task<Product?> GetProductAsync(string name);
-        Task<List<Product>> GetProductsAsync();
+        Task<List<Product>> GetProductsAsync(bool InStockOnly = false);
         Task<List<Product>> GetInStockProductsAsync();
         Task<decimal> GetTotalPriceOfInventoryAsync();
         Task UpdateProduct(Product productUpdate);

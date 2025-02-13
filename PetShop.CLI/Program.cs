@@ -5,12 +5,11 @@ using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
+using PetShop.Cli;
 using PetShop.Data;
 using PetShop.DomainEntities;
 using PetShop.DomainEntities.Validators;
 using PetShop.DomainService;
-using PetShop.Utilities;
 
 var services = CreateServiceCollection();
 var ProductService = services.GetService<IProductService>() ?? throw new Exception("Unable to locate a valid Product Logic module");
@@ -137,7 +136,6 @@ static bool ValidateEntity<T>(T entity) where T : EntityBase {
     }
     return true;
 }
-
 
 async Task AddEntity<T>(T? newEntity) where T : EntityBase {
     if (newEntity == null) {

@@ -5,10 +5,10 @@ namespace PetShop.Data.Tests;
 
 [TestClass]
 public class ProductRepositoryTests {
-    private ProductRepository productRepository;
-    private IDatabaseContext db;
+    private readonly ProductRepository productRepository;
+    private readonly DatabaseContext db;
 
-    public TestContext TestContext { get; set; }
+    public TestContext? TestContext { get; set; }
     public ProductRepositoryTests() {
         //TODO: should this move or do we want a different database for each test class?
         // or do we setup injection 
@@ -43,7 +43,7 @@ public class ProductRepositoryTests {
         var dbProduct = await db.Products.FindAsync(product.ProductId);
         Assert.IsNotNull(dbProduct);
         Assert.AreEqual(dbProduct, actual);
-        TestContext.WriteLine("Yay!!!!");
+        TestContext?.WriteLine("Yay!!!!");
     }
 
     [TestMethod]
@@ -54,6 +54,7 @@ public class ProductRepositoryTests {
 
         // Assert
         Assert.Inconclusive();
+        await Task.CompletedTask;
     }
 
     [TestMethod]
@@ -64,6 +65,7 @@ public class ProductRepositoryTests {
 
         // Assert
         Assert.Inconclusive();
+        await Task.CompletedTask;
     }
 
     [TestMethod]
@@ -74,7 +76,7 @@ public class ProductRepositoryTests {
 
         // Assert
         Assert.Inconclusive();
-
+        await Task.CompletedTask;
     }
 
     [TestMethod]
@@ -85,7 +87,7 @@ public class ProductRepositoryTests {
 
         // Assert
         Assert.Inconclusive();
-
+        await Task.CompletedTask;
     }
 
     [TestMethod]
@@ -96,7 +98,7 @@ public class ProductRepositoryTests {
 
         // Assert
         Assert.Inconclusive();
-
+        await Task.CompletedTask;
     }
 
     [TestMethod]
@@ -107,7 +109,7 @@ public class ProductRepositoryTests {
 
         // Assert
         Assert.Inconclusive();
-
+        await Task.CompletedTask;
     }
 
     [TestMethod]
@@ -118,6 +120,6 @@ public class ProductRepositoryTests {
 
         // Assert
         Assert.Inconclusive();
-
+        await Task.CompletedTask;
     }
 }

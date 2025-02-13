@@ -32,16 +32,16 @@ namespace PetShop.DomainService {
             return await products.GetAsync(name).ConfigureAwait(false);
         }
 
-        public async Task<List<Product>> GetProductsAsync() {
-            return await products.GetAsync().ConfigureAwait(false);
+        public async Task<List<Product>> GetProductsAsync(bool InStockOnly = false) {
+            return await products.GetAsync(InStockOnly).ConfigureAwait(false);
         }
 
         public async Task<List<Product>> GetInStockProductsAsync() {
-            return await products.GetInStockAsync().ConfigureAwait(false);
+            return await GetProductsAsync(true).ConfigureAwait(false);
         }
 
         public async Task<decimal> GetTotalPriceOfInventoryAsync() {
-            var inStock = await products.GetInStockAsync().ConfigureAwait(false);
+            var inStock = await GetProductsAsync(true).ConfigureAwait(false);
             return inStock.Select(p => p.Price * p.Quantity).Sum();
         }
 

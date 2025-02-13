@@ -39,7 +39,7 @@ namespace PetShop.DomainService.Tests {
             // Assert
             Assert.AreEqual(expectedProduct, actual);
 
-            productRepositoryMoq.Verify(prodRepo => prodRepo.GetAsync(10), Times.Once());
+            productRepositoryMoq.Verify(prodRepo => prodRepo.GetAsync(123231), Times.Once());
 
         }
     }
