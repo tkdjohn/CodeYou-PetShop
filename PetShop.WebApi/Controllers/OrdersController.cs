@@ -9,20 +9,22 @@ namespace PetShop.WebApi.Controllers {
     public class OrdersController (
         ILogger < ProductsController > logger,
         IOrderService orderService,
-        IMapper mapper)
+        IMapper mapper,
+        LinkGenerator linkGenerator)
     : ControllerBase {
         private readonly ILogger<ProductsController> logger = logger;
         private readonly IOrderService orderService = orderService;
         private readonly IMapper mapper = mapper;
+        private readonly LinkGenerator linkGenerator = linkGenerator;
 
         [HttpGet]
         [Route("{orderId}")]
-        public IActionResult GetOrders(int orderId) {
+        public IActionResult GetOrder(int orderId) {
             try {
+                //TODO: fill out this method
                 return Ok(new { orderId });
             } catch (Exception ex) {
-                //TODO: *jws* in class
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex,"Caught exception Getting an Order.");
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Caught an exception: {ex}");
             }
         }

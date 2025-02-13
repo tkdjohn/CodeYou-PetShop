@@ -9,7 +9,7 @@ namespace PetShop.WebApi.Mappers {
                 Description = product.Description,
                 LastModifiedDate = product.LastUpdatedDate,
                 Name = product.Name,
-                Price = product.Price,
+                Price = product.Price, 
                 ProductId = product.ProductId,
                 Quantity = product.Quantity
             };

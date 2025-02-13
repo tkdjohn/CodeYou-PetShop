@@ -3,8 +3,8 @@
 namespace PetShop.WebApi.Requests {
     public class ProductRequestModel {
         [Required]
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public required string Name { get; set; }
+        public required string Description { get; set; }
         [Required]
         [Range(0, int.MaxValue)]
         public int Quantity { get; set; }

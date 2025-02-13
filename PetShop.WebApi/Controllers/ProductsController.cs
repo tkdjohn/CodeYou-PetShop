@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PetShop.DomainEntities.Validators;
 using PetShop.DomainService;
 using PetShop.WebApi.Mappers;
@@ -26,7 +25,7 @@ namespace PetShop.WebApi.Controllers {
 
                 return Ok(productEntities.ToProductResponseModelArray());
             } catch (Exception ex) { 
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "Caught an exception Getting Products");
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Caught an exception: {ex}");
             }
         }
@@ -41,7 +40,7 @@ namespace PetShop.WebApi.Controllers {
                 }
                 return Ok(productEntity.ToProductResponseModel());
             } catch (Exception ex) {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "Caught an exception Getting a Product");
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Caught an exception: {ex}");
             }
         }
@@ -58,7 +57,7 @@ namespace PetShop.WebApi.Controllers {
 
                 return NoContent();
             } catch (Exception ex) {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "Caught an exception Deleting a Product.");
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Caught an exception: {ex}");
             }
         }
@@ -78,9 +77,9 @@ namespace PetShop.WebApi.Controllers {
                     "Get",
                     nameof(ProductsController).Replace("Controller",""),
                     new { productId = product.ProductId });
-                return Created("", product.ToProductResponseModel());
+                return Created(newProductUrl, product.ToProductResponseModel());
             } catch (Exception ex) {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "Caught an exception Adding a Product.");
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Caught an exception: {ex}");
             }
         }
@@ -88,14 +87,14 @@ namespace PetShop.WebApi.Controllers {
         [HttpPut]
         [Route("{ProductId}")]
         public async Task<ActionResult<ProductResponseModel>> UpdateProduct(
-            int ProductId, 
+            int productId, 
             ProductRequestModel request
         ) {
             try {
-                //TODO: *jws* in class.
+                //TODO: fill out this method
                 return NoContent();
             } catch (Exception ex) {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, "Caught exception Updating a Product.");
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Caught an exception: {ex}");
             }
         }

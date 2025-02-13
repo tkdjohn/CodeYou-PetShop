@@ -1,4 +1,4 @@
-﻿namespace PetShop.Utilities {
+﻿namespace PetShop.Cli {
     public static class CLIUtilities {
         public static string GetStringFromUser(string prompt) {
             string? userInput = null;

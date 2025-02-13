@@ -20,7 +20,7 @@ namespace PetShop.Data {
         }
 
         public async Task<Product?> GetAsync(string name) {
-            //TODO: *jws* FirstOrDefault will return the first if it exists, but
+            //TODO: FirstOrDefault will return the first if it exists, but
             // we should really handle the case where multiple products have the same 
             // name.
             return await petShopDb.Products.Where(p => p.Name == name).FirstOrDefaultAsync();
