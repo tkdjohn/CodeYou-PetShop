@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using PetShop.Data;
 using PetShop.DomainService;
@@ -22,12 +21,7 @@ namespace PetShop.WebApi {
             builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             builder.Services.AddDbContext<IDatabaseContext, DatabaseContext>(options => {
-                // The following configures EF to create a Sqlite database file in the
-                // special "local" folder for your platform.
-                var folder = Environment.SpecialFolder.LocalApplicationData;
-                var path = Environment.GetFolderPath(folder);
-                var DbPath = Path.Join(path, "PetShop.db");
-                options.UseSqlite($"Data Source={DbPath}");
+                options.UseSqlite($"Data Source={DatabaseContext.GetSqliteDbPath()}");
             })
             .AddScoped<IProductRepository, ProductRepository>()
             .AddScoped<IOrderRepository, OrderRepository>()

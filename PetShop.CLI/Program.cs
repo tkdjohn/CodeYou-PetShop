@@ -74,12 +74,7 @@ while (!userIsDone) {
 static IServiceProvider CreateServiceCollection() {
     var servicecollection = new ServiceCollection()
         .AddDbContext<IDatabaseContext, DatabaseContext>(options => {
-            // The following configures EF to create a Sqlite database file in the
-            // special "local" folder for your platform.
-            var folder = Environment.SpecialFolder.LocalApplicationData;
-            var path = Environment.GetFolderPath(folder);
-            var DbPath = Path.Join(path, "PetShop.db");
-            options.UseSqlite($"Data Source={DbPath}");
+            options.UseSqlite($"Data Source={DatabaseContext.GetSqliteDbPath()}");
         })
         .AddSingleton<IProductRepository, ProductRepository>()
         .AddSingleton<IOrderRepository, OrderRepository>()
@@ -87,7 +82,7 @@ static IServiceProvider CreateServiceCollection() {
         .AddSingleton<IOrderService, OrderService>()
         .AddLogging(options => {
             options.AddDebug();
-            options.SetMinimumLevel(LogLevel.Debug);
+            options.SetMinimumLevel(LogLevel.Error);
             options.AddSimpleConsole(options => {
                 options.SingleLine = true;
                 options.TimestampFormat = "HH:mm:ss.fff ";
