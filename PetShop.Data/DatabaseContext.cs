@@ -18,7 +18,9 @@ namespace PetShop.Data {
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options) {
-            options.UseSqlite($"Data Source={GetSqliteDbPath()}");
+            if (!options.IsConfigured) {
+                options.UseSqlite($"Data Source={GetSqliteDbPath()}");
+            }
         }
 
         public static string GetSqliteDbPath() {
